@@ -1,8 +1,9 @@
 import React, { useState, MouseEvent } from 'react';
-import { Box, Button, Menu, MenuItem } from '@mui/material';
+import {Box, Button, InputBase, Menu, MenuItem} from '@mui/material';
 import logo from '../../assets/icon.png'; // Adjust the path according to your structure
 import MenuIcon from '@mui/icons-material/Menu'; // Make sure this is imported correctly
 import { Link } from 'react-router-dom';
+import SearchBox from "../../features/SearchBox/SearchBox";
 
 export const Header: React.FC = () => {
     // State to manage the dropdown menu
@@ -22,7 +23,6 @@ export const Header: React.FC = () => {
         <Box
             className="header"
             sx={{
-                padding: '0 16px',
                 height: 56,
                 display: 'flex',
                 flexDirection: 'row',
@@ -71,13 +71,16 @@ export const Header: React.FC = () => {
             <Box
                 className="center"
                 sx={{
-                    margin: 0,
-                    padding: 0,
-                    border: 0,
-                    background: 'transparent',
+                    flex: "0 1 732px",
+                    minWidth: 0,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
                 }}
+
             >
                 {/* Search input, search button, voice search button */}
+                <SearchBox/>
             </Box>
             <Box className="end">
                 {/* Upload button, notifications, account */}
