@@ -1,22 +1,22 @@
-import React, { useState, MouseEvent } from 'react';
-import {Box, Button, InputBase, Menu, MenuItem} from '@mui/material';
-import logo from '../../assets/icon.png'; // Adjust the path according to your structure
-import MenuIcon from '@mui/icons-material/Menu'; // Make sure this is imported correctly
+import React, { MouseEvent, useState } from 'react';
+import { Box, Button, Menu, MenuItem, Tooltip } from '@mui/material';
+import logo from '../../assets/icon.png';
+import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import SearchBox from "../../features/SearchBox/SearchBox";
+import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export const Header: React.FC = () => {
-    // State to manage the dropdown menu
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-    // Function to handle opening the menu
     const handleClick = (event: MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget); // Set the anchor element for the menu
+        setAnchorEl(event.currentTarget);
     };
 
-    // Function to handle closing the menu
     const handleClose = () => {
-        setAnchorEl(null); // Close the menu
+        setAnchorEl(null);
     };
 
     return (
@@ -41,7 +41,6 @@ export const Header: React.FC = () => {
                     alignItems: 'center',
                 }}
             >
-                {/* Dropdown Button with Menu Icon */}
                 <Button
                     variant="text"
                     onClick={handleClick}
@@ -49,7 +48,6 @@ export const Header: React.FC = () => {
                     <MenuIcon />
                 </Button>
 
-                {/* Dropdown Menu */}
                 <Menu
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
@@ -61,13 +59,13 @@ export const Header: React.FC = () => {
                     <MenuItem onClick={handleClose} component={Link} to="/more">More on YouTube</MenuItem>
                 </Menu>
 
-                {/* Menu button, YouTube icon */}
                 <img
                     src={logo}
                     alt="Logo"
                     style={{ width: 'auto', height: '50px', display: 'block' }}
                 />
             </Box>
+
             <Box
                 className="center"
                 sx={{
@@ -77,13 +75,30 @@ export const Header: React.FC = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                 }}
-
             >
-                {/* Search input, search button, voice search button */}
-                <SearchBox/>
+                <SearchBox />
             </Box>
-            <Box className="end">
-                {/* Upload button, notifications, account */}
+
+            <Box
+                className="end"
+                sx={{
+                    minWidth: '225px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    overflow: 'hidden',
+                    padding: 0,
+                }}
+            >
+                <Tooltip title="Create Video">
+                    <Button startIcon={<VideoCallOutlinedIcon />} />
+                </Tooltip>
+
+                <Tooltip title="Notifications">
+                    <Button startIcon={<NotificationsIcon />} />
+                </Tooltip>
+
+                <Button startIcon={<AccountCircleIcon />} />
             </Box>
         </Box>
     );
