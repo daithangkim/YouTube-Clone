@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, InputBase } from '@mui/material';
+import {Box, Button, InputBase, Tooltip} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 const SearchBox = () => {
@@ -9,7 +9,7 @@ const SearchBox = () => {
                 display: 'flex',
                 alignItems: 'center',
                 overflow: 'hidden',
-                width: '100%',
+                width: '55%',
             }}
         >
             <InputBase
@@ -23,15 +23,17 @@ const SearchBox = () => {
                     height: '40px',
                 }}
             />
-            <Button
-                variant="outlined"
-                startIcon={<SearchIcon />}
-                sx={{
-                    height: '40px',
-                    borderRadius: '0 40px 40px 0',
-                    padding: '0',
-                }}>
-            </Button>
+            <Tooltip title="Search">
+                <Button
+                    variant="outlined"
+                    startIcon={<SearchIcon/>}
+                    sx={{
+                        height: '40px',
+                        borderRadius: '0 40px 40px 0',
+                        padding: '0',
+                    }}>
+                </Button>
+            </Tooltip>
         </Box>
     );
 };
