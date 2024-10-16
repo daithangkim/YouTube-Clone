@@ -15,8 +15,6 @@ function App() {
             <Header/>
 
             <div className="App-Content">
-                <Sidebar/>
-
                 {/*main content*/}
                 <div style={{flex: 1}}>
                     <Routes>

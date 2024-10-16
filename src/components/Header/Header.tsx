@@ -1,23 +1,16 @@
-import React, { MouseEvent, useState } from 'react';
-import { Box, Button, Menu, MenuItem, Tooltip } from '@mui/material';
+import React, {useState} from 'react';
+import {Box, Button, Tooltip} from '@mui/material';
 import logo from '../../assets/icon.png';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
 import SearchBox from "../../features/SearchBox/SearchBox";
 import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Sidebar from "../Sidebar/Sidebar";
 
 export const Header: React.FC = () => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-    const handleClick = (event: MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+    const toggleIsSideBarOpen = () => setIsSideBarOpen(!isSideBarOpen);
 
     return (
         <Box
@@ -30,6 +23,8 @@ export const Header: React.FC = () => {
                 justifyContent: 'space-between',
             }}
         >
+            {isSideBarOpen && <Sidebar/>}
+
             <Box
                 className="start"
                 sx={{
@@ -41,28 +36,20 @@ export const Header: React.FC = () => {
                     alignItems: 'center',
                 }}
             >
+
+                {/*sidebar*/}
                 <Button
                     variant="text"
-                    onClick={handleClick}
+                    onClick={toggleIsSideBarOpen}
                 >
-                    <MenuIcon />
+                    <MenuIcon/>
                 </Button>
 
-                <Menu
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                >
-                    <MenuItem onClick={handleClose} component={Link} to="/">My YouTube</MenuItem>
-                    <MenuItem onClick={handleClose} component={Link} to="/subscriptions">Subscriptions</MenuItem>
-                    <MenuItem onClick={handleClose} component={Link} to="/discover">Discover</MenuItem>
-                    <MenuItem onClick={handleClose} component={Link} to="/more">More on YouTube</MenuItem>
-                </Menu>
-
+                {/*logo*/}
                 <img
                     src={logo}
                     alt="Logo"
-                    style={{ width: 'auto', height: '50px', display: 'block' }}
+                    style={{width: 'auto', height: '50px', display: 'block'}}
                 />
             </Box>
 
@@ -76,7 +63,7 @@ export const Header: React.FC = () => {
                     alignItems: 'center',
                 }}
             >
-                <SearchBox />
+                <SearchBox/>
             </Box>
 
             <Box
@@ -91,14 +78,14 @@ export const Header: React.FC = () => {
                 }}
             >
                 <Tooltip title="Create Video">
-                    <Button startIcon={<VideoCallOutlinedIcon />} />
+                    <Button startIcon={<VideoCallOutlinedIcon/>}/>
                 </Tooltip>
 
                 <Tooltip title="Notifications">
-                    <Button startIcon={<NotificationsIcon />} />
+                    <Button startIcon={<NotificationsIcon/>}/>
                 </Tooltip>
 
-                <Button startIcon={<AccountCircleIcon />} />
+                <Button startIcon={<AccountCircleIcon/>}/>
             </Box>
         </Box>
     );
