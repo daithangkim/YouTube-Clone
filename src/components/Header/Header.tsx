@@ -7,6 +7,7 @@ import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Sidebar from "../Sidebar/Sidebar";
+import HeaderStartBox from "./HeaderStartBox/HeaderStartBox";
 
 export const Header: React.FC = () => {
     const [isSideBarOpen, setIsSideBarOpen] = useState(false);
@@ -25,33 +26,7 @@ export const Header: React.FC = () => {
         >
             {isSideBarOpen && <Sidebar/>}
 
-            <Box
-                className="start"
-                sx={{
-                    margin: 0,
-                    padding: 0,
-                    border: 0,
-                    background: 'transparent',
-                    display: 'flex',
-                    alignItems: 'center',
-                }}
-            >
-
-                {/*sidebar*/}
-                <Button
-                    variant="text"
-                    onClick={toggleIsSideBarOpen}
-                >
-                    <MenuIcon/>
-                </Button>
-
-                {/*logo*/}
-                <img
-                    src={logo}
-                    alt="Logo"
-                    style={{width: 'auto', height: '50px', display: 'block'}}
-                />
-            </Box>
+            <HeaderStartBox/>
 
             <Box
                 className="center"
