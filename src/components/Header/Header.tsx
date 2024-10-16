@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import {Box, Button, Tooltip} from '@mui/material';
-import logo from '../../assets/icon.png';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchBox from "../../features/SearchBox/SearchBox";
 import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -11,7 +9,6 @@ import HeaderStartBox from "./HeaderStartBox/HeaderStartBox";
 
 export const Header: React.FC = () => {
     const [isSideBarOpen, setIsSideBarOpen] = useState(false);
-    const toggleIsSideBarOpen = () => setIsSideBarOpen(!isSideBarOpen);
 
     return (
         <Box
