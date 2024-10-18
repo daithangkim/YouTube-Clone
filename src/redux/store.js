@@ -1,10 +1,12 @@
 // src/redux/store.js
-import { configureStore } from '@reduxjs/toolkit';
-import sidebarButtonReducer from '../components/Header/HeaderStartBox/sidebarButtonSlice'; // Correct import
+import {configureStore} from '@reduxjs/toolkit';
+import sidebarButtonReducer from '../components/Header/HeaderStartBox/sidebarButtonSlice';
+import categoryReducer from "../components/Sidebar/categorySlice";
 
 const store = configureStore({
     reducer: {
-        sidebarButton: sidebarButtonReducer, // This should match the slice name
+        sidebarButton: sidebarButtonReducer,
+        category: categoryReducer, // Add category reducer
     },
 });
 
