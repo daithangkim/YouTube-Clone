@@ -1,10 +1,10 @@
 import React from 'react'
-import {Box, Button} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import {Box} from "@mui/material";
 import logo from "../../../assets/icon.png";
 import {useDispatch, useSelector} from "react-redux";
 import {toggleSidebarButton} from "./sidebarButtonSlice";
 import Sidebar from "../../Sidebar/Sidebar";
+import MenuButton from "../../MenuButton";
 
 const HeaderStartBox = () => {
     const dispatch = useDispatch();
@@ -28,9 +28,7 @@ const HeaderStartBox = () => {
         >
 
             {/*sidebar*/}
-            <Button onClick={handleToggleSidebar}>
-                <MenuIcon/>
-            </Button>
+            <MenuButton onClick={handleToggleSidebar}/>
 
             {/*logo*/}
             <img
@@ -39,8 +37,7 @@ const HeaderStartBox = () => {
                 style={{width: 'auto', height: '50px', display: 'block'}}
             />
 
-            {/* Conditional rendering of sidebar */}
-            {isSidebarOpen && <Sidebar/>}
+            <Sidebar/>
         </Box>
     )
 }

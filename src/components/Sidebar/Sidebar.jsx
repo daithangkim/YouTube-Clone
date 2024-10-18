@@ -1,81 +1,93 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Drawer } from "@mui/material";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import HomeIcon from "@mui/icons-material/Home";
-import TheatersIcon from "@mui/icons-material/Theaters";
-import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import HistoryIcon from "@mui/icons-material/History";
-import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
-import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
-import WatchLaterIcon from "@mui/icons-material/WatchLater";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import {toggleSidebarButton} from "../Header/HeaderStartBox/sidebarButtonSlice";
+import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from '@mui/material';
+import { toggleSidebarButton } from '../Header/HeaderStartBox/sidebarButtonSlice';
+import MenuButton from "../MenuButton";
+import logo from '../../assets/icon.png';
+import HomeIcon from '@mui/icons-material/Home';
+import TheatersIcon from '@mui/icons-material/Theaters';
+import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HistoryIcon from '@mui/icons-material/History';
+import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
+import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 const Sidebar = () => {
     const dispatch = useDispatch();
-    const open = useSelector((state) => state.sidebarButton.isOpen); // Get the state from Redux
+    const isSidebarOpen = useSelector((state) => state.sidebarButton.isOpen);
+    const [selectedCategory, setSelectedCategory] = useState('Home'); // State to track selected category
 
-    const handleDrawerOnClose = () => {
-        dispatch(toggleSidebarButton()); // Dispatch the toggle action
+    const handleToggleSidebar = () => {
+        dispatch(toggleSidebarButton());
+    };
+
+    const handleCategoryClick = (category) => {
+        setSelectedCategory(category); // Update selected category
+        handleToggleSidebar(); // Optionally close the sidebar after selecting
     };
 
     return (
-        <div>
-            <Drawer
-                anchor="left"
-                open={open}
-                onClose={handleDrawerOnClose}  outside
+        <Drawer
+            anchor="left"
+            open={isSidebarOpen}
+            onClose={handleToggleSidebar}
+        >
+            <Box
+                sx={{ width: 250 }}
+                role="presentation"
             >
-                <Box
-                    sx={{ width: 250 }}
-                    role="presentation"
-                    onClick={handleDrawerOnClose}
-                    onKeyDown={handleDrawerOnClose}
-                >
-                    <List>
-                        {['Home', 'Shorts', 'Subscriptions'].map((text) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        {text === 'Home' ? <HomeIcon /> : text === 'Shorts' ? <TheatersIcon /> : <SubscriptionsIcon />}
-                                    </ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
-
-                    <Divider />
-
-                    {/* Channel Related List */}
-                    <List>
-                        {['Your Channel', 'History', 'Playlists', 'Your Videos', 'Watch Later', 'Liked Videos'].map((text) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        {text === 'Your Channel' ? <AccountCircleIcon /> :
-                                            text === 'History' ? <HistoryIcon /> :
-                                                text === 'Playlists' ? <PlaylistPlayIcon /> :
-                                                    text === 'Your Videos' ? <VideoLibraryIcon /> :
-                                                        text === 'Watch Later' ? <WatchLaterIcon /> :
-                                                            text === 'Liked Videos' ? <ThumbUpIcon /> : <HomeIcon />}
-                                    </ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
+                <Box sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
+                    <MenuButton onClick={handleToggleSidebar} />
+                    <img src={logo} alt="Logo" style={{ width: 'auto', height: '50px', marginLeft: '8px' }} />
                 </Box>
-            </Drawer>
-        </div>
+
+
+                <List>
+                    {['Home', 'Shorts', 'Subscriptions'].map((text) => (
+                        <ListItem key={text} disablePadding>
+                            <ListItemButton
+                                onClick={() => handleCategoryClick(text)}
+                                selected={selectedCategory === text}
+                                sx={{ borderRadius: '60px', marginLeft: 1, marginRight: 1}}
+                            >
+                                <ListItemIcon>
+                                    {text === 'Home' ? <HomeIcon /> : text === 'Shorts' ? <TheatersIcon /> : <SubscriptionsIcon />}
+                                </ListItemIcon>
+                                <ListItemText primary={text} />
+                            </ListItemButton>
+                        </ListItem>
+                    ))}
+                </List>
+
+                <Divider />
+
+                <List>
+                    {['Your Channel', 'History', 'Playlists', 'Your Videos', 'Watch Later', 'Liked Videos'].map((text) => (
+                        <ListItem key={text} disablePadding>
+                            <ListItemButton
+                                onClick={() => handleCategoryClick(text)}
+                                selected={selectedCategory === text} // Highlight if selected
+                                sx={{ borderRadius: '60px', marginLeft: 1, marginRight: 1}}
+
+                            >
+                                <ListItemIcon>
+                                    {text === 'Your Channel' ? <AccountCircleIcon /> :
+                                        text === 'History' ? <HistoryIcon /> :
+                                            text === 'Playlists' ? <PlaylistPlayIcon /> :
+                                                text === 'Your Videos' ? <VideoLibraryIcon /> :
+                                                    text === 'Watch Later' ? <WatchLaterIcon /> :
+                                                        text === 'Liked Videos' ? <ThumbUpIcon /> : <HomeIcon />}
+                                </ListItemIcon>
+                                <ListItemText primary={text} />
+                            </ListItemButton>
+                        </ListItem>
+                    ))}
+                </List>
+            </Box>
+        </Drawer>
     );
-}
+};
 
 export default Sidebar;
