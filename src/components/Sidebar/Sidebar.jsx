@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// src/components/Sidebar.jsx
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from '@mui/material';
 import { toggleSidebarButton } from '../Header/HeaderStartBox/sidebarButtonSlice';
@@ -13,18 +14,18 @@ import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import {setCategory} from "./categorySlice";
 
 const Sidebar = () => {
     const dispatch = useDispatch();
     const isSidebarOpen = useSelector((state) => state.sidebarButton.isOpen);
-    const [selectedCategory, setSelectedCategory] = useState('Home'); // State to track selected category
 
     const handleToggleSidebar = () => {
         dispatch(toggleSidebarButton());
     };
 
     const handleCategoryClick = (category) => {
-        setSelectedCategory(category); // Update selected category
+        dispatch(setCategory(category)); // Dispatch setCategory action
         handleToggleSidebar(); // Optionally close the sidebar after selecting
     };
 
@@ -43,14 +44,12 @@ const Sidebar = () => {
                     <img src={logo} alt="Logo" style={{ width: 'auto', height: '50px', marginLeft: '8px' }} />
                 </Box>
 
-
                 <List>
                     {['Home', 'Shorts', 'Subscriptions'].map((text) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton
                                 onClick={() => handleCategoryClick(text)}
-                                selected={selectedCategory === text}
-                                sx={{ borderRadius: '60px', marginLeft: 1, marginRight: 1}}
+                                sx={{ borderRadius: '60px', marginLeft: 1, marginRight: 1 }}
                             >
                                 <ListItemIcon>
                                     {text === 'Home' ? <HomeIcon /> : text === 'Shorts' ? <TheatersIcon /> : <SubscriptionsIcon />}
@@ -68,9 +67,7 @@ const Sidebar = () => {
                         <ListItem key={text} disablePadding>
                             <ListItemButton
                                 onClick={() => handleCategoryClick(text)}
-                                selected={selectedCategory === text} // Highlight if selected
-                                sx={{ borderRadius: '60px', marginLeft: 1, marginRight: 1}}
-
+                                sx={{ borderRadius: '60px', marginLeft: 1, marginRight: 1 }}
                             >
                                 <ListItemIcon>
                                     {text === 'Your Channel' ? <AccountCircleIcon /> :
