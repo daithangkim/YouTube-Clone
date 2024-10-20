@@ -3,6 +3,7 @@ import { Grid, Typography } from '@mui/material';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import VideoCard from "../VideoCard/VideoCard";
+import HomeRecommendationButtons from "../../pages/Home/homeRecommendationButtons";
 
 const Feed = () => {
     const dispatch = useDispatch();
@@ -32,22 +33,25 @@ const Feed = () => {
     }, [selectedCategory]);
 
     return (
-        <Grid container spacing={3} padding={2}>
-            {videos.length > 0 ? (
-                // only extracting the videos and not the shorts
-                videos
-                    .filter(video => video.type === 'video')
-                    .map((video, index) => (
-                        <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                            <VideoCard video={video} />
-                        </Grid>
-                    ))
-            ) : (
-                <Grid item xs={12}>
-                    <Typography variant="h6">No videos available</Typography>
-                </Grid>
-            )}
-        </Grid>
+        <div>
+            <HomeRecommendationButtons/>
+            <Grid container spacing={3} padding={2}>
+                {videos.length > 0 ? (
+                    // only extracting the videos and not the shorts
+                    videos
+                        .filter(video => video.type === 'video')
+                        .map((video, index) => (
+                            <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                                <VideoCard video={video} />
+                            </Grid>
+                        ))
+                ) : (
+                    <Grid item xs={12}>
+                        <Typography variant="h6">No videos available</Typography>
+                    </Grid>
+                )}
+            </Grid>
+        </div>
     );
 }
 
