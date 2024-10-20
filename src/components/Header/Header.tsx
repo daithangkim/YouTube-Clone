@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Box, Button, Tooltip} from '@mui/material';
-import SearchBox from "../../features/SearchBox/SearchBox";
+import SearchBox from "./SearchBox/SearchBox";
 import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
