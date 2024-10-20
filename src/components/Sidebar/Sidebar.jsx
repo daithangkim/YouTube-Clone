@@ -1,4 +1,3 @@
-// src/components/Sidebar.jsx
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from '@mui/material';
@@ -14,19 +13,24 @@ import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import {setCategory} from "./categorySlice";
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import SearchIcon from '@mui/icons-material/Search';
+import QueueMusicIcon from '@mui/icons-material/QueueMusic';
+import GetAppIcon from '@mui/icons-material/GetApp';
+import { setCategory } from "./categorySlice";
 
 const Sidebar = () => {
     const dispatch = useDispatch();
     const isSidebarOpen = useSelector((state) => state.sidebarButton.isOpen);
+    const selectedCategory = useSelector((state) => state.category.selectedCategory);
 
     const handleToggleSidebar = () => {
         dispatch(toggleSidebarButton());
     };
 
     const handleCategoryClick = (category) => {
-        dispatch(setCategory(category)); // Dispatch setCategory action
-        handleToggleSidebar(); // Optionally close the sidebar after selecting
+        dispatch(setCategory(category));
+        handleToggleSidebar();
     };
 
     return (
@@ -49,7 +53,12 @@ const Sidebar = () => {
                         <ListItem key={text} disablePadding>
                             <ListItemButton
                                 onClick={() => handleCategoryClick(text)}
-                                sx={{ borderRadius: '60px', marginLeft: 1, marginRight: 1 }}
+                                sx={{
+                                    borderRadius: '60px',
+                                    marginLeft: 1,
+                                    marginRight: 1,
+                                    backgroundColor: selectedCategory === text.toLowerCase() ? 'lightgray' : 'transparent', // Highlight if selected
+                                }}
                             >
                                 <ListItemIcon>
                                     {text === 'Home' ? <HomeIcon /> : text === 'Shorts' ? <TheatersIcon /> : <SubscriptionsIcon />}
@@ -67,7 +76,12 @@ const Sidebar = () => {
                         <ListItem key={text} disablePadding>
                             <ListItemButton
                                 onClick={() => handleCategoryClick(text)}
-                                sx={{ borderRadius: '60px', marginLeft: 1, marginRight: 1 }}
+                                sx={{
+                                    borderRadius: '60px',
+                                    marginLeft: 1,
+                                    marginRight: 1,
+                                    backgroundColor: selectedCategory === text.toLowerCase() ? 'lightgray' : 'transparent', // Highlight if selected
+                                }}
                             >
                                 <ListItemIcon>
                                     {text === 'Your Channel' ? <AccountCircleIcon /> :
@@ -75,7 +89,33 @@ const Sidebar = () => {
                                             text === 'Playlists' ? <PlaylistPlayIcon /> :
                                                 text === 'Your Videos' ? <VideoLibraryIcon /> :
                                                     text === 'Watch Later' ? <WatchLaterIcon /> :
-                                                        text === 'Liked Videos' ? <ThumbUpIcon /> : <HomeIcon />}
+                                                        <ThumbUpIcon />}
+                                </ListItemIcon>
+                                <ListItemText primary={text} />
+                            </ListItemButton>
+                        </ListItem>
+                    ))}
+                </List>
+
+                <Divider />
+
+                <List>
+                    {['Trending', 'Search', 'Playlist', 'Downloads'].map((text) => (
+                        <ListItem key={text} disablePadding>
+                            <ListItemButton
+                                onClick={() => handleCategoryClick(text)}
+                                sx={{
+                                    borderRadius: '60px',
+                                    marginLeft: 1,
+                                    marginRight: 1,
+                                    backgroundColor: selectedCategory === text.toLowerCase() ? 'lightgray' : 'transparent', // Highlight if selected
+                                }}
+                            >
+                                <ListItemIcon>
+                                    {text === 'Trending' ? <TrendingUpIcon /> :
+                                        text === 'Search' ? <SearchIcon /> :
+                                            text === 'Playlist' ? <QueueMusicIcon /> :
+                                                <GetAppIcon />}
                                 </ListItemIcon>
                                 <ListItemText primary={text} />
                             </ListItemButton>
