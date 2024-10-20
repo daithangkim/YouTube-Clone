@@ -100,7 +100,7 @@ const Sidebar = () => {
                 <Divider />
 
                 <List>
-                    {['Trending', 'Search', 'Playlist', 'Downloads'].map((text) => (
+                    {['Trending', 'Playlist', 'Downloads'].map((text) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton
                                 onClick={() => handleCategoryClick(text)}
